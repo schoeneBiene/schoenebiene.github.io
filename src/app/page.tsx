@@ -1,0 +1,57 @@
+import Link from "next/link";
+
+export default function Home() {
+	return (
+		<div className="bg-gradient-to-tr from-gray-900 to-gray-600">
+			<div
+				className="flex items-center justify-center flex-col h-screen w-full relative"
+				style={{ top: "-100px" }}
+			>
+				<img
+					src="https://utfs.io/f/97678266-6d12-4156-aeb1-815c413b3bbe-rrzghg.png"
+					className="rounded-full overflow-hidden"
+				/>
+				<div>
+					<h1 className="p-4 flex align-center bottom-5 text-5xl bg-gradient-to-tr from-yellow-600 via-yellow-400 to-amber-200 text-transparent bg-clip-text font-bold lugrasimo-regular">
+						goodbee
+					</h1>
+					<h2 className="flex flex-col items-center bottom-4 text-xl bg-gradient-to-tr from-gray-300 via-gray-200 to-gray-100 text-transparent bg-clip-text font-bold lugrasimo-regular">
+						I do stuff, sometimes
+					</h2>
+				</div>
+
+				<div className="inline">
+					<Link href={"https://github.com/schoeneBiene"}>
+						<img
+							src="https://utfs.io/f/393f927e-8212-405f-86f7-8541cb1e72a0-wqv0b7.png"
+							className="p-4 rounded-full overflow-hidden size-20 inline flex-col items-center"
+						/>
+					</Link>
+					<Link href={"/discord/"}>
+						<img
+							src="https://utfs.io/f/a3585068-cddd-4f15-9f4f-4795304e20ad-5751dp.png"
+							className="p-4 overflow-visible h-20 flex-col inline items-center"
+						/>
+					</Link>
+				</div>
+				<div>
+					<h1 className="p-2 text-4xl text-white flex flex-col">Projects</h1>
+					<div>
+						<Link
+							href={"https://github.com/schoeneBiene/modrinth.ts"}
+							className="p-1 underline text-white text-sm flex-col flex items-center"
+						>
+							modrinth.ts
+						</Link>
+						<Link
+							href={"https://github.com/schoeneBiene/TouchGrassReminder-plugin"}
+							className="p-1 underline text-white text-sm flex-col flex items-center"
+						>
+							TouchGrassReminder
+						</Link>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+}
