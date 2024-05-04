@@ -33,23 +33,6 @@ export default function Home() {
 					/>
 				</Link>
 			</div>
-			<div>
-				<h1 className="p-2 text-4xl text-white flex flex-col">Projects</h1>
-				<div>
-					<Link
-						href={"https://github.com/schoeneBiene/modrinth.ts"}
-						className="p-1 underline text-white text-sm flex-col flex items-center"
-					>
-						modrinth.ts
-					</Link>
-					<Link
-						href={"https://github.com/schoeneBiene/TouchGrassReminder-plugin"}
-						className="p-1 underline text-white text-sm flex-col flex items-center"
-					>
-						TouchGrassReminder
-					</Link>
-				</div>
-			</div>
 		</div>
 	);
 }
