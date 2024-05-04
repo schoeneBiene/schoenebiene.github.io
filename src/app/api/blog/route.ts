@@ -23,6 +23,12 @@ export async function POST(req: Request) {
             status: 401
         })
     }
+    
+    if(!postData.slug || !postData.title || !postData.body || !postData.secret) {
+        return new Response("Bad Request", {
+            status: 400
+        })
+    }
 
     const blogPost = await prisma.blogPost.create({
         data: {
