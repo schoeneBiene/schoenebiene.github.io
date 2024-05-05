@@ -24,6 +24,9 @@ export default function CreateBlogPage() {
     const onSubmit: SubmitHandler<CreateBlogForm> = (data) => {
         fetch("/api/blog", {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json"  
+            },
             body: JSON.stringify(data)
         }).then((res) => {
             if(res.status === 200) {
@@ -35,6 +38,9 @@ export default function CreateBlogPage() {
             } else {
                 setErrorMsg(res.statusText || "An unknown error occured.");
             }
+        }).catch((err) => {
+            console.error(err);
+            setErrorMsg("An unknown error occured")
         })
     }
 
