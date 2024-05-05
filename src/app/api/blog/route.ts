@@ -1,4 +1,5 @@
 import prisma from "@/prisma";
+import {revalidatePath} from "next/cache";
 
 interface CreateBlogRequest {
     slug: string,
@@ -38,6 +39,8 @@ export async function POST(req: Request) {
             body: postData.body
         }
     });
+
+    revalidatePath("/blog");
 
     return new Response(blogPost.slug , {
         status: 200
