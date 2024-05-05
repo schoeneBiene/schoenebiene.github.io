@@ -17,7 +17,11 @@ export default async function BlogPost({ slug }: { slug: string }) {
     return(
         <div>
             <h1 className="p-6 text-5xl underline">{post.title}</h1>
-            <BlogPostContent content={post.body} />
+            <div className="mx-auto" style={{
+                width: "600px"
+            }}>
+                <BlogPostContent content={post.body} />
+            </div>
         </div>
     )
 }
