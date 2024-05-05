@@ -1,5 +1,6 @@
 import prisma from "@/prisma";
 import {revalidatePath} from "next/cache";
+import crypto from "crypto";
 
 interface CreateBlogRequest {
     slug: string,
@@ -25,8 +26,14 @@ export async function POST(req: Request) {
             status: 400
         })
     }
+    
+    if(process.env.CREATION_SECRET == undefined) {
+        return new Response("Internal Server Error", {
+            status: 500
+        })
+    }
 
-    if(!(postData.secret === process.env.CREATION_SECRET)) {
+    if(!(crypto.timingSafeEqual(Buffer.from(postData.secret), Buffer.from(process.env.CREATION_SECRET || "")))) {
         return new Response("Unauthorized", {
             status: 401
         })
