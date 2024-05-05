@@ -18,15 +18,16 @@ export async function POST(req: Request) {
         })
     }
 
-    if(!(postData.secret === process.env.CREATION_SECRET)) {
-        return new Response("Unauthorized", {
-            status: 401
-        })
-    }
     
     if(!postData.slug || !postData.title || !postData.body || !postData.secret) {
         return new Response("Bad Request", {
             status: 400
+        })
+    }
+
+    if(!(postData.secret === process.env.CREATION_SECRET)) {
+        return new Response("Unauthorized", {
+            status: 401
         })
     }
 
