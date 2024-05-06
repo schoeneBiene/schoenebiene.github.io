@@ -9,6 +9,11 @@ interface CreateBlogRequest {
     secret: string
 }
 
+interface DeleteBlogRequest {
+    slug: string,
+    secret: string
+}
+
 export async function POST(req: Request) {
     let postData: CreateBlogRequest;
 
@@ -52,4 +57,49 @@ export async function POST(req: Request) {
     return new Response(blogPost.slug , {
         status: 200
     })
+}
+
+export async function DELETE(req: Request) {
+    let postData: DeleteBlogRequest;
+
+    try {
+        postData = await req.json();
+    } catch(_err) {
+        return new Response("Bad Request", {
+            status: 400
+        })
+    }
+
+
+    if(!postData.slug || !postData.secret) {
+        return new Response("Bad Request", {
+            status: 400
+        })
+    }
+    
+    if(process.env.CREATION_SECRET == undefined) {
+        return new Response("Internal Server Error", {
+            status: 500
+        })
+    }
+
+    if(!(crypto.timingSafeEqual(Buffer.from(postData.secret), Buffer.from(process.env.CREATION_SECRET || "")))) {
+        return new Response("Unauthorized", {
+            status: 401
+        })
+    }
+
+    const blogPost = await prisma.blogPost.delete({
+        where: {
+            slug: postData.slug
+        }
+    });
+
+    revalidatePath("/blog");
+    revalidatePath(`/blog/${postData.slug}`);
+
+    return new Response("", {
+        status: 200
+    })
+
 }
