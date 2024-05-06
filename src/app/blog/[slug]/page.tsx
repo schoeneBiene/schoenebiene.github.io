@@ -1,10 +1,10 @@
-import {Suspense, lazy} from "react"
+import {Suspense, lazy} from "react";
 
-const BlogPost = lazy(() => import("@/components/BlogPost"))
+const BlogPost = lazy(() => import("@/components/BlogPost"));
 
 export const metadata = {
     title: "goodbee's blog"
-}
+};
 
 export default function BlogPage({ params }: { params: { slug: string } }) {
     return(
@@ -15,5 +15,5 @@ export default function BlogPage({ params }: { params: { slug: string } }) {
                 </Suspense>
             </div>
         </div>
-    )
+    );
 }

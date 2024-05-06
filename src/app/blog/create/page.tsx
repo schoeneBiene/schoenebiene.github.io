@@ -2,7 +2,7 @@
 
 import {redirect} from "next/navigation";
 import {useState} from "react";
-import {SubmitHandler, set, useForm} from "react-hook-form"
+import {SubmitHandler, set, useForm} from "react-hook-form";
 
 type CreateBlogForm = {
     slug: string
@@ -17,7 +17,7 @@ export default function CreateBlogPage() {
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<CreateBlogForm>()
+    } = useForm<CreateBlogForm>();
     
     const [errorMsg, setErrorMsg] = useState("");
 
@@ -30,19 +30,19 @@ export default function CreateBlogPage() {
             body: JSON.stringify(data)
         }).then((res) => {
             if(res.status === 200) {
-                redirect(`/blog/${data.slug}`)
+                redirect(`/blog/${data.slug}`);
             } else if(res.status === 401) {
-                setErrorMsg("Wrong secret!")
+                setErrorMsg("Wrong secret!");
             } else if(res.status === 500) {
-                setErrorMsg("Internal Server Error!")
+                setErrorMsg("Internal Server Error!");
             } else {
                 setErrorMsg(res.statusText || "An unknown error occured.");
             }
         }).catch((err) => {
             console.error(err);
-            setErrorMsg("An unknown error occured")
-        })
-    }
+            setErrorMsg("An unknown error occured");
+        });
+    };
 
     return(
         <div className="flex w-full h-screen">
@@ -59,5 +59,5 @@ export default function CreateBlogPage() {
                 <input type="submit" className="underline text-white" />
             </form>
         </div>
-    )
+    );
 }

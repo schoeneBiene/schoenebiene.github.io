@@ -9,12 +9,12 @@ export default async function BlogList() {
             <Link href={"/blog/" + value.slug}>
                 {value.title}
             </Link>
-        </li>
-    })
+        </li>;
+    });
 
     return(
         <ul>
             {elements}
         </ul>
-    )
+    );
 }

@@ -11,7 +11,7 @@ export default async function BlogPost({ slug }: { slug: string }) {
     if(post == null) {
         return(
             <div>Not found!</div>
-        )
+        );
     }
 
     return(
@@ -23,5 +23,5 @@ export default async function BlogPost({ slug }: { slug: string }) {
                 <BlogPostContent content={post.body} />
             </div>
         </div>
-    )
+    );
 }

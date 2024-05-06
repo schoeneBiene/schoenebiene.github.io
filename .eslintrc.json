@@ -1,0 +1,29 @@
+{
+  "extends": "next/core-web-vitals",
+  "plugins": [
+      "@stylistic/js"
+  ],
+  "rules": {
+      "eqeqeq": [
+          "error",
+          "smart"
+      ],
+      "curly": "error",
+      "@stylistic/js/semi": [
+          "error",
+          "always"
+      ],
+      "indent": [
+          "error",
+          4
+      ],
+      "brace-style": [
+          "error",
+          "1tbs"
+      ],
+      "yoda": [
+          "error",
+          "never"
+      ]
+  }
+}

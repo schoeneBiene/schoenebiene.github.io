@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
     if(!slug) {
         return new Response("Bad Request", {
             status: 400
-        })
+        });
     }
 
     const blogPost = await prisma.blogPost.findUnique({
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
     if(!blogPost) {
         return new Response("Not Found", {
             status: 404
-        })
+        });
     }
 
     return new Response(JSON.stringify(blogPost), {
@@ -49,7 +49,7 @@ export async function GET(req: NextRequest) {
         headers: {
             "Content-Type": "application/json"
         }
-    })
+    });
 }
 
 export async function POST(req: Request) {
@@ -60,26 +60,26 @@ export async function POST(req: Request) {
     } catch(_err) {
         return new Response("Bad Request", {
             status: 400
-        })
+        });
     }
 
     
     if(!postData.slug || !postData.title || !postData.body || !postData.secret) {
         return new Response("Bad Request", {
             status: 400
-        })
+        });
     }
     
-    if(process.env.CREATION_SECRET == undefined) {
+    if(process.env.CREATION_SECRET === undefined) {
         return new Response("Internal Server Error", {
             status: 500
-        })
+        });
     }
 
     if(!(crypto.timingSafeEqual(Buffer.from(postData.secret), Buffer.from(process.env.CREATION_SECRET || "")))) {
         return new Response("Unauthorized", {
             status: 401
-        })
+        });
     }
 
     const blogPost = await prisma.blogPost.create({
@@ -94,7 +94,7 @@ export async function POST(req: Request) {
 
     return new Response(blogPost.slug , {
         status: 200
-    })
+    });
 }
 
 export async function DELETE(req: Request) {
@@ -105,26 +105,26 @@ export async function DELETE(req: Request) {
     } catch(_err) {
         return new Response("Bad Request", {
             status: 400
-        })
+        });
     }
 
 
     if(!postData.slug || !postData.secret) {
         return new Response("Bad Request", {
             status: 400
-        })
+        });
     }
     
-    if(process.env.CREATION_SECRET == undefined) {
+    if(process.env.CREATION_SECRET === undefined) {
         return new Response("Internal Server Error", {
             status: 500
-        })
+        });
     }
 
     if(!(crypto.timingSafeEqual(Buffer.from(postData.secret), Buffer.from(process.env.CREATION_SECRET || "")))) {
         return new Response("Unauthorized", {
             status: 401
-        })
+        });
     }
 
     const blogPost = await prisma.blogPost.delete({
@@ -138,7 +138,7 @@ export async function DELETE(req: Request) {
 
     return new Response("", {
         status: 200
-    })
+    });
 
 }
 
@@ -150,26 +150,26 @@ export async function PATCH(req: Request) {
     } catch(_err) {
         return new Response("Bad Request", {
             status: 400
-        })
+        });
     }
 
 
     if(!postData.slug || !postData.secret) {
         return new Response("Bad Request", {
             status: 400
-        })
+        });
     }
     
-    if(process.env.CREATION_SECRET == undefined) {
+    if(process.env.CREATION_SECRET === undefined) {
         return new Response("Internal Server Error", {
             status: 500
-        })
+        });
     }
 
     if(!(crypto.timingSafeEqual(Buffer.from(postData.secret), Buffer.from(process.env.CREATION_SECRET || "")))) {
         return new Response("Unauthorized", {
             status: 401
-        })
+        });
     }
 
     const blogPost = await prisma.blogPost.update({
