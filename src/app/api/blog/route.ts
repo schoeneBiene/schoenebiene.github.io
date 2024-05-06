@@ -2,6 +2,10 @@ import prisma from "@/prisma";
 import {revalidatePath} from "next/cache";
 import crypto from "crypto";
 
+interface GetBlogRequest {
+    slug: string
+}
+
 interface CreateBlogRequest {
     slug: string,
     title: string,
@@ -19,6 +23,40 @@ interface PatchBlogRequest {
     title?: string,
     body?: string,
     secret: string
+}
+
+export async function GET(req: Request) {
+    let postData: GetBlogRequest;
+
+    try {
+        postData = await req.json();
+    } catch(_err) {
+        return new Response("Bad Request", {
+            status: 400
+        })
+    }
+    
+    if(!postData.slug) {
+        return new Response("Bad Request", {
+            status: 400
+        })
+    }
+
+    const blogPost = await prisma.blogPost.findUnique({
+        where: {
+            slug: postData.slug
+        }
+    });
+
+    if(!blogPost) {
+        return new Response("Not Found", {
+            status: 404
+        })
+    }
+
+    return new Response(JSON.stringify(blogPost), {
+        status: 200
+    });
 }
 
 export async function POST(req: Request) {
