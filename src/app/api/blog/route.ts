@@ -1,10 +1,8 @@
 import prisma from "@/prisma";
 import {revalidatePath} from "next/cache";
 import crypto from "crypto";
-
-interface GetBlogRequest {
-    slug: string
-}
+import {NextRequest} from "next/server";
+import {headers} from "next/headers";
 
 interface CreateBlogRequest {
     slug: string,
@@ -25,18 +23,10 @@ interface PatchBlogRequest {
     secret: string
 }
 
-export async function GET(req: Request) {
-    let postData: GetBlogRequest;
+export async function GET(req: NextRequest) {
+    const slug = req.nextUrl.searchParams.get("slug");
 
-    try {
-        postData = await req.json();
-    } catch(_err) {
-        return new Response("Bad Request", {
-            status: 400
-        })
-    }
-    
-    if(!postData.slug) {
+    if(!slug) {
         return new Response("Bad Request", {
             status: 400
         })
@@ -44,7 +34,7 @@ export async function GET(req: Request) {
 
     const blogPost = await prisma.blogPost.findUnique({
         where: {
-            slug: postData.slug
+            slug
         }
     });
 
@@ -55,8 +45,11 @@ export async function GET(req: Request) {
     }
 
     return new Response(JSON.stringify(blogPost), {
-        status: 200
-    });
+        status: 200,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
 }
 
 export async function POST(req: Request) {
