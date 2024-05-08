@@ -8,9 +8,11 @@ export default function Home() {
             style={{ top: "-100px" }}
         >
             <Image
-                src="https://utfs.io/f/97678266-6d12-4156-aeb1-815c413b3bbe-rrzghg.png"
+                src="/assets/pfp.png"
                 className="rounded-full overflow-hidden"
                 alt="goodbee profile picture"
+                width={200}
+                height={200}
             />
             <div>
                 <h1 className="p-4 flex align-center bottom-5 text-5xl bg-gradient-to-tr from-yellow-600 via-yellow-400 to-amber-200 text-transparent bg-clip-text font-bold lugrasimo-regular">
@@ -24,16 +26,20 @@ export default function Home() {
             <div className="inline">
                 <Link href={"https://github.com/schoeneBiene"}>
                     <Image
-                        src="https://utfs.io/f/393f927e-8212-405f-86f7-8541cb1e72a0-wqv0b7.png"
+                        src="/assets/github-mark-white.png"
                         className="p-4 rounded-full overflow-hidden size-20 inline flex-col items-center"
                         alt="github logo"
+                        width={20}
+                        height={20} 
                     />
                 </Link>
                 <Link href={"/discord/"}>
                     <Image
-                        src="https://utfs.io/f/a3585068-cddd-4f15-9f4f-4795304e20ad-5751dp.png"
+                        src="/assets/icon_clyde_white_RGB.png"
                         className="p-4 overflow-visible h-20 flex-col inline items-center"
                         alt="discord logo"
+                        width={100}
+                        height={20}
                     />
                 </Link>
             </div>
