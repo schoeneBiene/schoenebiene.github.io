@@ -1,5 +1,6 @@
 "use client";
 
+import BlogPostContent from "@/components/BlogPostContent";
 import {redirect} from "next/navigation";
 import {useState} from "react";
 import {SubmitHandler, set, useForm} from "react-hook-form";
@@ -15,8 +16,7 @@ export default function CreateBlogPage() {
     const {
         register,
         handleSubmit,
-        watch,
-        formState: { errors },
+        watch
     } = useForm<CreateBlogForm>();
     
     const [errorMsg, setErrorMsg] = useState("");
@@ -57,6 +57,10 @@ export default function CreateBlogPage() {
                 <input {...register("secret", { required: true })} type="password"/> <br />
                 <label className="text-red-500">{errorMsg}</label> <br />
                 <input type="submit" className="underline text-white" />
+                <br />
+                <div className="text-white">
+                    <BlogPostContent content={watch("body")} />
+                </div>
             </form>
         </div>
     );
