@@ -14,3 +14,7 @@ body {
     background: linear-gradient(to top right, #1f2937, #4b5563);
     background-attachment: fixed;
 }
+
+a {
+    @apply text-blue-500 underline;
+}
