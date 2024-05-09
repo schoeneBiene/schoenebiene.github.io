@@ -2,13 +2,15 @@ import prisma from "@/prisma";
 import {revalidatePath} from "next/cache";
 import crypto from "crypto";
 import {NextRequest} from "next/server";
-import {headers} from "next/headers";
+
+const turnStileVerifyEndpoint = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
 interface CreateBlogRequest {
     slug: string,
     title: string,
     body: string,
-    secret: string
+    secret: string,
+    turnstileToken: string
 }
 
 interface DeleteBlogRequest {
@@ -70,6 +72,24 @@ export async function POST(req: Request) {
         });
     }
     
+    let formData = new FormData();
+    formData.append("secret", process.env.TURNSTILE_SECRET_KEY || "");
+    formData.append("response", postData.turnstileToken);
+    formData.append("remoteip", req.headers.get("x-forwarded-for") || "0.0.0.0");
+    
+    const turnstileResult = await fetch(turnStileVerifyEndpoint, {
+        method: "POST",
+        body: formData
+    });
+
+    const outcome = await turnstileResult.json();
+    if(!outcome.success) {
+        return new Response("Forbidden", {
+            status: 403,
+            statusText: "Forbidden"
+        });
+    }
+
     if(process.env.CREATION_SECRET === undefined) {
         return new Response("Internal Server Error", {
             status: 500

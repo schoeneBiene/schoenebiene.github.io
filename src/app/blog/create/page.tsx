@@ -2,13 +2,15 @@
 
 import BlogPostContent from "@/components/BlogPostContent";
 import {redirect} from "next/navigation";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {SubmitHandler, set, useForm} from "react-hook-form";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 type CreateBlogForm = {
     slug: string
     title: string
     body: string
+    turnstileToken: string
     secret: string
 }
 
@@ -16,12 +18,18 @@ export default function CreateBlogPage() {
     const {
         register,
         handleSubmit,
-        watch
+        watch,
+        setValue
     } = useForm<CreateBlogForm>();
     
     const [errorMsg, setErrorMsg] = useState("");
 
     const onSubmit: SubmitHandler<CreateBlogForm> = (data) => {
+        if(!data.turnstileToken) {
+            setErrorMsg("Please solve the captcha!");
+            return;
+        }
+
         fetch("/api/blog", {
             method: "POST",
             headers: {
@@ -55,6 +63,15 @@ export default function CreateBlogPage() {
                 <textarea {...register("body", { required: true })} className="w-80"/> <br />
                 <label className="text-white">Secret</label> <br />
                 <input {...register("secret", { required: true })} type="password"/> <br />
+                <Turnstile 
+                    siteKey="0x4AAAAAAAZuV-T70N8SJe1i"
+                    onSuccess={(token) => {
+                        setValue("turnstileToken", token);
+                    }}
+                    onError={() => {
+                        setErrorMsg("An error occured while loading the captcha. Please try again.");
+                    }}
+                />
                 <label className="text-red-500">{errorMsg}</label> <br />
                 <input type="submit" className="underline text-white" />
                 <br />
