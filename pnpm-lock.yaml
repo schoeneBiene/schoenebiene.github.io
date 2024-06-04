@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@marsidev/react-turnstile':
-    specifier: ^0.6.1
-    version: 0.6.1(react-dom@18.3.1)(react@18.3.1)
+    specifier: ^0.7.0
+    version: 0.7.0(react-dom@18.3.1)(react@18.3.1)
   '@prisma/client':
     specifier: ^5.14.0
     version: 5.14.0(prisma@5.14.0)
@@ -172,8 +172,8 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@marsidev/react-turnstile@0.6.1(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-xsWFqmdccmZ09MX72t2cppQJlxeBH8kdiZNLpYRBHMbKgXhU0ucOCnaOsM0eXv65ripeXiXQcfxu78QIKklRGA==}
+  /@marsidev/react-turnstile@0.7.0(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-YLmt5OvfwIh5Xqf+FVVsdWJHjHd5yxlwa9ZuHU1mMLhrh5JeYaXRXNHB4VoPmoJNmhdwQxFdIppYkzxyY0awVQ==}
     peerDependencies:
       react: '>=16.8.0'
       react-dom: '>=16.8.0'
