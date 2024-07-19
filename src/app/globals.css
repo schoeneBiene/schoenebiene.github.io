@@ -5,16 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lugrasimo&display=swap");
 
 .lugrasimo-regular {
-	font-family: "Lugrasimo", cursive;
-	font-weight: 400;
-	font-style: normal;
-}
-
-body { 
-    background: linear-gradient(to top right, #1f2937, #4b5563);
-    background-attachment: fixed;
-}
-
-a {
-    @apply text-blue-500 underline;
+  font-family: "Lugrasimo", cursive;
+  font-weight: 400;
+  font-style: normal;
 }
